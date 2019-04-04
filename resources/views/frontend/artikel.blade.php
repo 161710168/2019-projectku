@@ -141,16 +141,60 @@
     @php
 $artikels =App\artikels::all();
 @endphp
-    <div id="blog-page-content" class="section-padding">
+    
+<div id="blog-page-content" class="section-padding">
         <div class="container">
             <div class="row">
                 <!-- Single Articles Start -->
+                @foreach($artikels as $data)
+                @if($data->id % 2)
                 <div class="col-lg-12">
                     <article class="single-article">
-                    @foreach($artikels as $data)
                         <div class="row">
                             <!-- Articles Thumbnail Start -->
                             <div class="col-lg-5">
+                                <div class="article-thumb">
+                                        <img src="{{ asset ('assets/img/artikel/' .$data->gambar. '' ) }}" alt="JSOFT">
+                                </div>
+                            </div>
+                            <!-- Articles Thumbnail End -->
+
+                            <!-- Articles Content Start -->
+                            <div class="col-lg-7">
+                                <div class="display-table">
+                                    <div class="display-table-cell">
+                                        <div class="article-body">
+                                                <h3><a href="article-details.html">{{$data->judul}}</a></h3>
+                                                <div class="article-meta">
+                                                    <a href="#" class="author">JUDUL <span></span></a>
+                                                    <a href="#" class="commnet"> <span>{{ $data->kategoriartikels->nama_kategori }}</span></a>
+                                                </div>
+    
+                                                <div class="date_comment">
+                                                        <a href="#"><i class="fa fa-calender" aria-hidden="true"></i>{{ $data->created_at->diffForHumans() }}</a>
+                                                        </div>
+                                                        <p>{!!str_limit($data->deskripsi,100)!!}.....
+                                                                <br>
+                                                            </p>
+                                                            <a href="/artikels/single/{{$data->slug}}" class="readmore-btn">Read More <i class="fa fa-long-arrow-right"></i></a></p> 
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Articles Content End -->
+                        </div>
+                    </article>
+                </div>
+                <!-- Single Articles End -->
+
+                <!-- Single Articles Start -->
+                @else
+                <div class="col-lg-12">
+                    <article class="single-article middle">
+                        <div class="row">   
+
+                            <!-- Articles Thumbnail Start -->
+                            <div class="col-lg-5 d-xl-none">
                                 <div class="article-thumb">
                                     <img src="{{ asset ('assets/img/artikel/' .$data->gambar. '' ) }}" alt="JSOFT">
                                 </div>
@@ -162,40 +206,41 @@ $artikels =App\artikels::all();
                                 <div class="display-table">
                                     <div class="display-table-cell">
                                         <div class="article-body">
-                                        <h3><a href="/artikels/single/{{$data->slug}}">{{ $data->judul}}</a></h3>
+                                        <h3><a href="article-details.html">{{$data->judul}}</a></h3>
                                             <div class="article-meta">
                                                 <a href="#" class="author">JUDUL <span></span></a>
                                                 <a href="#" class="commnet"> <span>{{ $data->kategoriartikels->nama_kategori }}</span></a>
                                             </div>
-                                                
 
                                             <div class="date_comment">
-                                                <a href="#"><i class="fa fa-calender" aria-hidden="true"></i>{{ $data->created_at->diffForHumans() }}</a>
-                                                </div>
-                                                <p>{!!str_limit($data->deskripsi,100)!!}.....
-                                                    <br>
-                                                </p>
-                                                <a href="/artikels/single/{{$data->slug}}" class="readmore-btn">Read More <i class="fa fa-long-arrow-right"></i></a></p> 
-                                              </div>
+                                                    <a href="#"><i class="fa fa-calender" aria-hidden="true"></i>{{ $data->created_at->diffForHumans() }}</a>
+                                                    </div>
+                                                    <p>{!!str_limit($data->deskripsi,100)!!}.....
+                                                            <br>
+                                                        </p>
+                                                        <a href="/artikels/single/{{$data->slug}}" class="readmore-btn">Read More <i class="fa fa-long-arrow-right"></i></a></p> 
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- Articles Content End --> 
+                            <!-- Articles Content End -->
+
+                            <!-- Articles Thumbnail Start -->
+                            <div class="col-lg-5 d-none d-xl-block">
+                                <div class="article-thumb">
+                                    <img src="{{ asset ('assets/img/artikel/' .$data->gambar. '' ) }}" alt="JSOFT">
+                                </div>
+                            </div>
+                            <!-- Articles Thumbnail End -->
                         </div>
-                         @endforeach
                     </article>
                 </div>
+                @endif
+                @endforeach
                 <!-- Single Articles End -->
-            </div>
-
-            <div class="row">
-               
             </div>
         </div>
     </div>
-    <!--== Car List Area End ==-->
     
     
     
